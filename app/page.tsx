@@ -1,103 +1,71 @@
-// "use client";
-// import { useState, useCallback, SetStateAction } from "react";
-// import GridLayout from "react-grid-layout";
-// import "react-grid-layout/css/styles.css";
-// import "react-resizable/css/styles.css";
-// import { debounce } from "lodash";
-
-// export default function Home() {
-//   // Define the layout with custom widths and heights
-//   const [layout, setLayout] = useState([
-//     { i: "1", x: 0, y: 0, w: 2, h: 2 },    // 500x500 pixels
-//     { i: "2", x: 2, y: 0, w: 2, h: 1 },    // 500x250 pixels
-//     { i: "3", x: 0, y: 2, w: 1, h: 1 },    // 250x250 pixels
-//     { i: "4", x: 1, y: 2, w: 1, h: 2 },    // 250x500 pixels
-//   ]);
-
-//   // Debounced layout change handler for smooth resizing
-//   const onLayoutChange = useCallback(
-//     debounce(
-//       (newLayout: SetStateAction<{ i: string; x: number; y: number; w: number; h: number; }[]>) => {
-//         setLayout(newLayout);
-//       },
-//       300 // Adjust debounce delay as needed
-//     ),
-//     []
-//   );
-
-//   return (
-//     <div className="flex h-screen">
-//       {/* Left sidebar */}
-//       <div className="flex-shrink-0 w-1/3 bg-gray-100 p-4">
-//         <p className="text-center text-gray-600">Left Side (Reserved)</p>
-//       </div>
-
-//       {/* Right draggable/resizable grid */}
-//       <div className="flex-grow w-2/3 p-4">
-//         <GridLayout
-//           className="layout"
-//           layout={layout}
-//           cols={4} // Define grid columns (1 column = 250px)
-//           rowHeight={250} // Set row height (1 row = 125px, 4 rows = 500px)
-//           width={1000} // Total width of the grid
-//           onLayoutChange={onLayoutChange}
-//           // resizeHandles={['se', 'sw', 'ne', 'nw', 's', 'w', 'e', 'n']} // Resize handles
-//           isDraggable={true}
-//           isResizable={true}
-//           useCSSTransforms={true}
-//           margin={[40, 40]} // Margin between items
-//           compactType={"vertical"} // Disable auto-compaction
-//           preventCollision={true} // Prevent items from overlapping
-//         >
-//           <div key="1" className="bg-gray-200 p-4 rounded-3xl shadow">
-//             Social Media Links
-//           </div>
-//           <div key="2" className="bg-gray-200 p-4 rounded-3xl shadow">
-//             Photos
-//           </div>
-//           <div key="3" className="bg-gray-200 p-4 rounded-3xl shadow">
-//             Videos
-//           </div>
-//           <div key="4" className="bg-gray-200 p-4 rounded-3xl shadow">
-//             Map
-//           </div>
-//         </GridLayout>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
-import { useState, useCallback, SetStateAction } from "react";
+import { useState, useCallback, useEffect } from "react";
 import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
+import axios from "axios";
+
+// Import the components
+import Photo from "@/components/Photo";
+import Video from "@/components/Video";
+import Social from "@/components/Social";
+import Map from "@/components/Map";
+
+interface LayoutItem {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  type: "socialMediaLinks" | "image" | "video" | "map"; // Define possible types
+  data: any; // Adjust this to be more specific if possible
+}
 
 export default function Home() {
-  // Define the layout with square dimensions (w: width, h: height)
-  const [layout, setLayout] = useState([
-    { i: "1", x: 0, y: 0, w: 2, h: 2 },    // 1:1 square (500x500 pixels)
-    { i: "2", x: 2, y: 0, w: 2, h: 1 },    // Rectangle (500x250 pixels)
-    { i: "3", x: 0, y: 2, w: 1, h: 1 },    // 1:1 square (250x250 pixels)
-    { i: "4", x: 1, y: 2, w: 1, h: 2 },    // Rectangle (250x500 pixels)
-  ]);
+  const [layout, setLayout] = useState<LayoutItem[]>([]);
 
-  // Debounced layout change handler for smooth resizing
-  const onLayoutChange = useCallback(
-    debounce(
-      (newLayout: SetStateAction<{ i: string; x: number; y: number; w: number; h: number; }[]>) => {
-        setLayout(newLayout);
-      },
-      300 // Adjust debounce delay as needed
-    ),
-    []
-  );
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/user/test")
+      .then(response => {
+        console.log("Fetched layout data:", response.data);
+        setLayout(response.data.layout);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the user data!", error);
+      });
+  }, []);
 
-  // Width of each column = Total grid width / Number of columns
-  const gridWidth = 800; // Set grid width (1000px in this case)
-  const numCols = 4; // Define number of columns
-  const rowHeight = gridWidth / numCols; // Ensure each row has the same height as a column's width
+  // const onLayoutChange = useCallback(
+  //   debounce(
+  //     (newLayout: LayoutItem[]) => {
+  //       console.log("Layout changed:", newLayout);
+  //       setLayout(newLayout);
+  //     },
+  //     300
+  //   ),
+  //   []
+  // );
+
+  const gridWidth = 800;
+  const numCols = 4;
+  const rowHeight = gridWidth / numCols;
+
+  const renderComponent = (item: LayoutItem) => {
+    console.log(item.type)
+    switch (item.type) {
+      case "socialMediaLinks":
+        return <Social url={item.data.url} platform={item.data.platform} />;
+      case "image":
+        return <Photo src={item.data.url} alt={item.data.alt} />;
+      case "video":
+        return <Video src={item.data.url} />;
+      case "map":
+        return <Map location={item.data.location} zoom={item.data.zoom} />;
+      default:
+        return <div>Unknown Component Type</div>;
+    }
+  };
 
   return (
     <div className="flex h-screen">
@@ -111,32 +79,29 @@ export default function Home() {
         <GridLayout
           className="layout"
           layout={layout}
-          cols={numCols} // Define grid columns (1 column = 250px if grid width is 1000px and cols=4)
-          rowHeight={rowHeight} // Set row height equal to column width for 1:1 ratio
-          width={gridWidth} // Total width of the grid
-          onLayoutChange={onLayoutChange}
+          cols={numCols}
+          rowHeight={rowHeight}
+          width={gridWidth}
+          // onLayoutChange={onLayoutChange}
           isDraggable={true}
           isResizable={true}
           useCSSTransforms={true}
-          margin={[20, 20]} // Margin between items
-          compactType={"vertical"} // Disable auto-compaction
-          preventCollision={true} // Prevent items from overlapping
+          margin={[40, 40]}
+          compactType={"vertical"}
+          preventCollision={false}
+
         >
-          <div key="1" className="bg-gray-200 p-4 rounded-3xl shadow">
-            Social Media Links
-          </div>
-          <div key="2" className="bg-gray-200 p-4 rounded-3xl shadow">
-            Photos
-          </div>
-          <div key="3" className="bg-gray-200 p-4 rounded-3xl shadow">
-            Videos
-          </div>
-          <div key="4" className="bg-gray-200 p-4 rounded-3xl shadow">
-            Map
-          </div>
+          {layout.map(item => (
+            <div
+              key={item.i}
+              data-grid={{ i: item.i, x: item.x, y: item.y, w: item.w, h: item.h }}
+              className="bg-gray-200 overflow-hidden rounded-3xl shadow"
+            >
+              {renderComponent(item)}
+            </div>
+          ))}
         </GridLayout>
       </div>
     </div>
   );
 }
-

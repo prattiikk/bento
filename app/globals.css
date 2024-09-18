@@ -3,16 +3,80 @@
 @tailwind utilities;
 
 .react-grid-item {
-  transition: all 0.3s ease; /* Smooth transition for resizing and dragging */
-}
-.react-resizable-handle {
-  background-color: rgba(0, 0, 0, 0.2); /* Example color */
-  transition: background-color 0.2s ease; /* Smooth transition for handle */
-}
-.react-resizable-handle:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Darker color on hover */
-}
-.react-grid-item.dragging {
-  border: 2px dashed #007bff; /* Example dashed border during dragging */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s, height 0.4s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for aesthetic effect */
 }
 
+/* Apply the wobble animation only when dragging */
+.react-grid-item.dragging {
+  animation: wobble 0.9s ease-in-out infinite; /* Wobble animation */
+  border: 2px dashed #4a90e2; /* Dashed border during dragging */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow during dragging */
+  transition: none; /* Remove transition during dragging for real-time response */
+}
+
+
+
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+.react-grid-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.react-resizable-handle {
+  border-radius: 50%; /* Rounded handle for a modern look */
+  transition: background-color 0.3s ease, transform 0.6s ease; /* Smooth transitions for hover effect */
+}
+
+.react-resizable-handle:hover {
+  transform: scale(1.6); /* Slightly increase the size of the handle on hover for better visibility */
+}
+
+.react-grid-placeholder {
+  border: 2px dashed #999; /* Dashed border similar to dragging */
+  border-radius:10%;
+  background-color: #999;
+}
+
+/* Resize handler button styles */
+.react-resizable-handle {
+  background-color: #999; /* Change the background color */
+  border-radius: 50%; /* Make it circular */
+  width: 30px; /* Set a custom size */
+  height: 30px; /* Set a custom size */
+  opacity: 0.7; /* Add some transparency */
+  cursor: pointer; /* Ensure the cursor changes */
+}
+
+/* Southeast handle custom styles */
+.react-resizable-handle-se {
+  background-color: #999; /* Different color for the southeast handle */
+  border-radius: 50%; /* Circular for the se handle */
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+/* Hide handle on hover */
+.react-resizable:hover .react-resizable-handle {
+  opacity: 0.5; /* Dim when hovering */
+}
+
+/* Hide handles when not resizing */
+.react-grid-item .react-resizable-handle {
+  visibility: hidden;
+}
+.react-grid-item:hover .react-resizable-handle {
+  visibility: visible;
+}
