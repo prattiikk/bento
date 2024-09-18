@@ -2,26 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.react-grid-item {
+  transition: all 0.3s ease; /* Smooth transition for resizing and dragging */
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.react-resizable-handle {
+  background-color: rgba(0, 0, 0, 0.2); /* Example color */
+  transition: background-color 0.2s ease; /* Smooth transition for handle */
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.react-resizable-handle:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker color on hover */
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.react-grid-item.dragging {
+  border: 2px dashed #007bff; /* Example dashed border during dragging */
 }
