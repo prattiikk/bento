@@ -11,6 +11,8 @@ import Photo from "@/components/Photo";
 import Video from "@/components/Video";
 import Social from "@/components/Social";
 import Map from "@/components/Map";
+import ProfileSection from "@/components/ProfileSection";
+import TextCard from "@/components/TextCard";
 
 interface LayoutItem {
   i: string;
@@ -18,7 +20,7 @@ interface LayoutItem {
   y: number;
   w: number;
   h: number;
-  type: "socialMediaLinks" | "image" | "video" | "map"; // Define possible types
+  type: "socialMediaLinks" | "image" | "video" | "map" | "text"; // Define possible types
   data: any; // Adjust this to be more specific if possible
 }
 
@@ -56,12 +58,14 @@ export default function Home() {
     switch (item.type) {
       case "socialMediaLinks":
         return <Social url={item.data.url} platform={item.data.platform} />;
+      case "text":
+        return <TextCard cont={item.data.content} />;
       case "image":
         return <Photo src={item.data.url} alt={item.data.alt} />;
       case "video":
         return <Video src={item.data.url} />;
       case "map":
-        return <Map location={item.data.location} zoom={item.data.zoom} />;
+        return <Map latitude={item.data.latitude} longitude={item.data.longitude} zoom={item.data.zoom} />;
       default:
         return <div>Unknown Component Type</div>;
     }
@@ -70,8 +74,10 @@ export default function Home() {
   return (
     <div className="flex h-screen">
       {/* Left sidebar */}
-      <div className="flex-shrink-0 w-1/3 bg-gray-100 p-4">
-        <p className="text-center text-gray-600">Left Side (Reserved)</p>
+      <div className="w-1/3 p-4 h-screen">
+
+        <ProfileSection />
+
       </div>
 
       {/* Right draggable/resizable grid */}

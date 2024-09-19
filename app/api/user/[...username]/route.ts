@@ -62,6 +62,32 @@ export async function GET() {
                     "url": "https://cdn.pixabay.com/video/2021/02/25/66257-516924671_tiny.mp4",
                     "title": "Aesthetic Time-Lapse Video"
                 }
+            },
+            {
+                "i": "6",
+                "x": 1,
+                "y": 5,
+                "w": 2,
+                "h": 2,
+                "type": "text",
+                "data": {
+                    "content": "this is some sample text for testing",
+                    "title": "Aesthetic Time-Lapse Video"
+                }
+            },
+            {
+                "i": "7",
+                "x": 1,
+                "y": 5,
+                "w": 2,
+                "h": 2,
+                "type": "map",
+                "data": {
+                    "latitude": "51.5074",
+                    "longitude": "-0.1278",
+                    "zoom": "10",
+                    "title": "Aesthetic Time-Lapse Video"
+                }
             }
         ]
     }
