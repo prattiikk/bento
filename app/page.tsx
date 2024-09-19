@@ -4,6 +4,18 @@ import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import axios from "axios";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // Import the components
 import Photo from "@/components/Photo";
@@ -154,29 +166,57 @@ export default function Home() {
       <div className="w-1/3 p-4 h-screen">
         <ProfileSection />
       </div>
+      <div className="mb-4">
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-blue-500 text-white p-2 rounded">Add Component</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader className=" text-white">
+              <DialogTitle>Add New Component</DialogTitle>
+              <DialogDescription>
+                Enter the URL to add a new component.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col space-y-2 text-white">
+              <Input
+                type="text"
+                value={url}
+                onChange={handleInputChange}
+                placeholder="Enter URL"
+              />
+              <Button
+                onClick={() => {
+                  if (url) {
+                    addComponentFromURL(url);
+                    setUrl(""); // Clear input after adding
+                  } else {
+                    console.error('URL cannot be empty');
+                  }
+                }}
+                className="bg-blue-500 text-white p-2 rounded"
+              >
+                Add Component
+              </Button>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
+        <button
+          onClick={saveChanges}
+          disabled={!unsavedChanges} // Disable button if no changes
+          className={`bg-green-500 text-white p-2 mt-2 rounded ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          Save Changes
+        </button>
+      </div>
       <div className="flex-grow w-2/3 p-4">
-        <div className="mb-4">
-          <input
-            type="text"
-            value={url}
-            onChange={handleInputChange}
-            placeholder="Enter URL"
-            className="border p-2 w-full rounded"
-          />
-          <button
-            onClick={handleAddComponent}
-            className="bg-blue-500 text-white p-2 mt-2 rounded"
-          >
-            Add Component
-          </button>
-          <button
-            onClick={saveChanges}
-            disabled={!unsavedChanges} // Disable button if no changes
-            className={`bg-green-500 text-white p-2 mt-2 rounded ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            Save Changes
-          </button>
-        </div>
+
         <GridLayout
           className="layout"
           layout={layout}
