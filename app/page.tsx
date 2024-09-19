@@ -27,15 +27,16 @@ interface LayoutItem {
 export default function Home() {
   const [layout, setLayout] = useState<LayoutItem[]>([]);
   const [initialLoad, setInitialLoad] = useState(true);
-  const [newItemIndex, setNewItemIndex] = useState<number>(0); // Initialize index
-  const [url, setUrl] = useState(""); // State for URL input
+  const [newItemIndex, setNewItemIndex] = useState<number>(0);
+  const [url, setUrl] = useState("");
+  const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/user/test")
       .then(response => {
         console.log("Fetched layout data:", response.data);
         setLayout(response.data.layout);
-        setInitialLoad(false); // Set flag to false after initial load
+        setInitialLoad(false);
       })
       .catch(error => {
         console.error("There was an error fetching the user data!", error);
@@ -73,12 +74,9 @@ export default function Home() {
       setLayout(prevLayout => {
         const updatedLayout = [...prevLayout, newItem];
         setNewItemIndex(prevIndex => prevIndex + 1);
+        setUnsavedChanges(true); // Set unsaved changes flag
         return updatedLayout;
       });
-
-      axios.post('http://localhost:3000/api/updateLayout', [...layout, newItem])
-        .then(response => console.log('Layout updated successfully'))
-        .catch(error => console.error('Error updating layout:', error));
     } else {
       console.error('Unknown URL type');
     }
@@ -102,13 +100,14 @@ export default function Home() {
     }).filter((item: LayoutItem | undefined) => item !== undefined) as LayoutItem[];
 
     setLayout(updatedItems);
-    sendUpdateToServer(updatedItems);
+    setUnsavedChanges(true); // Set unsaved changes flag
   };
 
-  const sendUpdateToServer = async (updatedItems: LayoutItem[]) => {
+  const saveChanges = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/updateLayout', updatedItems);
+      const response = await axios.post('http://localhost:3000/api/updateLayout', layout);
       console.log('Server response:', response.data);
+      setUnsavedChanges(false); // Reset unsaved changes flag
     } catch (error) {
       console.error('Error sending update to server:', error);
     }
@@ -169,6 +168,13 @@ export default function Home() {
             className="bg-blue-500 text-white p-2 mt-2 rounded"
           >
             Add Component
+          </button>
+          <button
+            onClick={saveChanges}
+            disabled={!unsavedChanges} // Disable button if no changes
+            className={`bg-green-500 text-white p-2 mt-2 rounded ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            Save Changes
           </button>
         </div>
         <GridLayout
