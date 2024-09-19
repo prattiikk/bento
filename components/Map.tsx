@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import AirplaneScene from "./PlaneAnimation";
 
 interface MapCardProps {
     latitude: number;
@@ -28,9 +29,7 @@ const MapCard: React.FC<MapCardProps> = ({
                 return;
             }
 
-            // Construct the static map URL
             const staticMapUrl = `https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/${longitude},${latitude},${zoom}/${width}x${height}@2x?access_token=${MAPBOX_TOKEN}`;
-
             setMapUrl(staticMapUrl);
         };
 
@@ -46,12 +45,15 @@ const MapCard: React.FC<MapCardProps> = ({
     }
 
     return (
-        <div className="w-full h-full overflow-hidden rounded-lg shadow-lg">
-            <img
-                src={mapUrl}
-                alt={`Map of location at ${latitude},${longitude}`}
-                className="w-full h-full object-cover"
-            />
+        <div className="relative w-full h-full">
+            <div className="absolute w-full h-full inset-0 overflow-hidden">
+                <img
+                    src={mapUrl}
+                    alt={`Map of location at ${latitude},${longitude}`}
+                    className="w-full h-full object-cover"
+                />
+                <AirplaneScene />
+            </div>
         </div>
     );
 };

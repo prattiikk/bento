@@ -16,7 +16,6 @@
 }
 
 
-
 @keyframes wobble {
   0%, 100% {
     transform: rotate(0deg);
@@ -31,6 +30,7 @@
     transform: rotate(2deg);
   }
 }
+
 .react-grid-item:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
@@ -77,6 +77,48 @@
 .react-grid-item .react-resizable-handle {
   visibility: hidden;
 }
+
 .react-grid-item:hover .react-resizable-handle {
   visibility: visible;
+}
+
+
+
+@keyframes moveClouds {
+  from {
+    transform: translate(-100%, -100%) scale(0.7);
+  }
+  to {
+    transform: translate(100%, 100%) rotate(180deg) scale(1.2);
+  }
+}
+
+@keyframes movePlane {
+  from {
+    transform: translate(-400px, -400px) rotate(135deg);
+  }
+  to {
+    transform: translate(600px, 600px) rotate(135deg);
+  }
+}
+
+@keyframes movePlaneShadow {
+  from {
+    transform: translate(-400px, -400px) rotate(135deg);
+  }
+  to {
+    transform: translate(600px, 600px) rotate(135deg);
+  }
+}
+
+.animate-moveClouds {
+  animation: moveClouds 20s linear infinite;
+}
+
+.animate-movePlane {
+  animation: movePlane 15s linear infinite;
+}
+
+.animate-movePlaneShadow {
+  animation: movePlaneShadow 15s linear infinite;
 }
