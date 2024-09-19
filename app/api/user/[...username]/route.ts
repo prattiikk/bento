@@ -11,7 +11,7 @@ export async function GET() {
                 "h": 2,
                 "type": "image",
                 "data": {
-                    "url": "https://plus.unsplash.com/premium_photo-1673285285994-6bfff235db97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bmF0dXJlJTIwYWVzdGhldGljfGVufDB8fDB8fHww", // High-quality nature image
+                    "url": "https://plus.unsplash.com/premium_photo-1673285285994-6bfff235db97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bmF0dXJlJTIwYWVzdGhldGljfGVufDB8fDB8fHww",
                     "alt": "Aesthetic Nature Image"
                 }
             },
@@ -23,7 +23,7 @@ export async function GET() {
                 "h": 1,
                 "type": "image",
                 "data": {
-                    "url": "https://images.unsplash.com/photo-1693050011869-575b67ae3c72?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJlJTIwYWVzdGhldGljfGVufDB8fDB8fHww", // High-quality architecture image
+                    "url": "https://images.unsplash.com/photo-1693050011869-575b67ae3c72?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmF0dXJlJTIwYWVzdGhldGljfGVufDB8fDB8fHww",
                     "alt": "Aesthetic Architecture Image"
                 }
             },
@@ -47,7 +47,7 @@ export async function GET() {
                 "h": 1,
                 "type": "image",
                 "data": {
-                    "url": "https://images.unsplash.com/photo-1714552271149-250fb5742354?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG5hdHVyZSUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D", // High-quality landscape image
+                    "url": "https://images.unsplash.com/photo-1714552271149-250fb5742354?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG5hdHVyZSUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D",
                     "alt": "Aesthetic Landscape Image"
                 }
             },
@@ -71,7 +71,7 @@ export async function GET() {
                 "h": 2,
                 "type": "text",
                 "data": {
-                    "content": "this is some sample text for testing",
+                    "content": "This is some sample text for testing",
                     "title": "Aesthetic Time-Lapse Video"
                 }
             },
@@ -95,13 +95,15 @@ export async function GET() {
                 "y": 3,
                 "w": 2,
                 "h": 2,
+                "maxH": 30,
                 "type": "website",
                 "data": {
-                    "url": "https://contra.com/entrpswn"
+                    "url": "https://reader-app-ui.framer.website/"
                 }
-            }
+            },
+
         ]
-    }
+    };
 
     return NextResponse.json(portfolioData);
 }
