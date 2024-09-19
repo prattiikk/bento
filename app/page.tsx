@@ -13,14 +13,14 @@ import Social from "@/components/Social";
 import Map from "@/components/Map";
 import ProfileSection from "@/components/ProfileSection";
 import TextCard from "@/components/TextCard";
-
+import Websites from "@/components/Websites"
 interface LayoutItem {
   i: string;
   x: number;
   y: number;
   w: number;
   h: number;
-  type: "socialMediaLinks" | "image" | "video" | "map" | "text"; // Define possible types
+  type: "socialMediaLinks" | "image" | "video" | "map" | "text" | "website"; // Define possible types
   data: any; // Adjust this to be more specific if possible
 }
 
@@ -49,7 +49,7 @@ export default function Home() {
   //   []
   // );
 
-  const gridWidth = 800;
+  const gridWidth = 940;
   const numCols = 4;
   const rowHeight = gridWidth / numCols;
 
@@ -66,6 +66,8 @@ export default function Home() {
         return <Video src={item.data.url} />;
       case "map":
         return <Map latitude={item.data.latitude} longitude={item.data.longitude} zoom={item.data.zoom} />;
+      case "website":
+        return <Websites url={item.data.url} />
       default:
         return <div>Unknown Component Type</div>;
     }

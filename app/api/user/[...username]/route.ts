@@ -88,6 +88,17 @@ export async function GET() {
                     "zoom": "10",
                     "title": "Aesthetic Time-Lapse Video"
                 }
+            },
+            {
+                "i": "8",
+                "x": 1,
+                "y": 3,
+                "w": 2,
+                "h": 2,
+                "type": "website",
+                "data": {
+                    "url": "https://contra.com/entrpswn"
+                }
             }
         ]
     }
