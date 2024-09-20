@@ -22,25 +22,58 @@ import ProfileSection from "@/components/ProfileSection";
 
 // Import Utility functions and types
 import LayoutItem from "@/utils/Types";
-import { addComponentFromURL, fetchLayout, saveChanges } from "@/utils/ComponentUtilities";
 import renderComponent from "@/components/CompRenderer";
 import { gridWidth, numCols, rowHeight } from "@/utils/config";
+import { GlobalLayoutRecState, GlobalLayoutUnsavedChangesRecState, newLayoutItemIndexRecState } from "@/store/layoutStore";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import axios from "axios";
 
 
 
 export default function Home() {
-  const [layout, setLayout] = useState<LayoutItem[]>([]);
-  const [initialLoad, setInitialLoad] = useState(true);
-  const [newItemIndex, setNewItemIndex] = useState<number>(0);
-  const [url, setUrl] = useState("");
-
+  // recoil states
+  const [layout, setLayout] = useRecoilState(GlobalLayoutRecState)
+  const [newItemIndex, setNewItemIndex] = useRecoilState(newLayoutItemIndexRecState);
   // flag for unsaved changes
-  const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
+  const [unsavedChanges, setUnsavedChanges] = useRecoilState(GlobalLayoutUnsavedChangesRecState);
+
+
+  // local states
+  const [url, setUrl] = useState("");
+  const [initialLoad, setInitialLoad] = useState(true);
+
 
   useEffect(() => {
     // fetches the user layout and sets it in the state
-    fetchLayout({ setLayout, setInitialLoad });
+    fetchLayout(setInitialLoad);
   }, []);
+
+
+
+  // We remove setLayout and setInitialLoad from the params
+  function fetchLayout(setInitialLoad: (value: boolean) => void) {
+
+    axios.get('http://localhost:3000/api/user/test')
+      .then(response => {
+        console.log('Fetched layout data:', response.data);
+
+        // Update the Recoil global state directly
+        setLayout(response.data.layout as LayoutItem[]); // Assuming response.data.layout is of type LayoutItem[]
+        setInitialLoad(false);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the user data!', error);
+      });
+  }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -86,57 +119,7 @@ export default function Home() {
       <div className="w-1/3 p-4 h-screen">
         <ProfileSection />
       </div>
-      <div className="mb-4">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="bg-blue-500 text-white p-2 rounded">Add Component</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader className=" text-white">
-              <DialogTitle>Add New Component</DialogTitle>
-              <DialogDescription>
-                Enter the URL to add a new component.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex flex-col space-y-2 text-white">
-              <Input
-                type="text"
-                value={url}
-                onChange={handleInputChange}
-                placeholder="Enter URL"
-              />
-              <Button
-                onClick={() => {
-                  if (url) {
-                    addComponentFromURL(layout, url, newItemIndex, setLayout, setNewItemIndex, setUnsavedChanges);
-                    setUrl(""); // Clear input after adding
-                  } else {
-                    console.error('URL cannot be empty');
-                  }
-                }}
-                className="bg-blue-500 text-white p-2 rounded"
-              >
-                Add Component
-              </Button>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Close
-                </Button>
-              </DialogClose>
-            </div>
-          </DialogContent>
-        </Dialog>
-        <button
-          onClick={() => {
-            saveChanges(layout, setUnsavedChanges)
-          }
-          }
-          disabled={!unsavedChanges} // Disable button if no changes
-          className={`bg-green-500 text-white p-2 mt-2 rounded ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
-        >
-          Save Changes
-        </button>
-      </div>
+
       <div className="flex-grow w-2/3 p-4">
 
         <GridLayout
