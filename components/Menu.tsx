@@ -1,76 +1,83 @@
-import { useState } from "react";
-import { CopyIcon } from "@radix-ui/react-icons";
-
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react'
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import LayoutItem from '@/utils/Types';
+import { addComponentFromURL, saveChanges } from '@/utils/ComponentUtilities';
+const MenuComp = () => {
+    const [layout, setLayout] = useState<LayoutItem[]>([]);
+    const [newItemIndex, setNewItemIndex] = useState<number>(0);
+    const [url, setUrl] = useState("");
+    const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
 
-export function ShareLinkDialog({ onAddLink }) {
-  const [link, setLink] = useState("");
 
-  const handleCopy = () => {
-    if (link) {
-      navigator.clipboard.writeText(link);
-    }
-  };
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUrl(event.target.value);
+    };
 
-  const handleAddLink = () => {
-    if (link) {
-      onAddLink(link);
-      setLink(""); // Clear input after adding
-    }
-  };
 
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Add New Link</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Add New Link</DialogTitle>
-          <DialogDescription>
-            Enter the link you want to add and copy it if needed.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              id="link"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              placeholder="Enter your link here"
-            />
-          </div>
-          <Button type="button" size="sm" className="px-3" onClick={handleCopy}>
-            <span className="sr-only">Copy</span>
-            <CopyIcon className="h-4 w-4" />
-          </Button>
+    return (
+        <div className="mb-4">
+
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button className="bg-blue-500 text-white p-2 rounded">Add Component</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader className=" text-white">
+                        <DialogTitle>Add New Component</DialogTitle>
+                        <DialogDescription>
+                            Enter the URL to add a new component.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col space-y-2 text-white">
+                        <Input
+                            type="text"
+                            value={url}
+                            onChange={handleInputChange}
+                            placeholder="Enter URL"
+                        />
+                        <Button
+                            onClick={() => {
+                                if (url) {
+                                    addComponentFromURL(layout, url, newItemIndex, setLayout, setNewItemIndex, setUnsavedChanges);
+                                    setUrl(""); // Clear input after adding
+                                } else {
+                                    console.error('URL cannot be empty');
+                                }
+                            }}
+                            className="bg-blue-500 text-white p-2 rounded"
+                        >
+                            Add Component
+                        </Button>
+                        <DialogClose asChild>
+                            <Button type="button" variant="secondary">
+                                Close
+                            </Button>
+                        </DialogClose>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            <button
+                onClick={() => {
+                    saveChanges(layout, setUnsavedChanges)
+                }
+                }
+                disabled={!unsavedChanges} // Disable button if no changes
+                className={`bg-green-500 text-white p-2 mt-2 rounded ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+                Save Changes
+            </button>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <Button type="button" variant="secondary" onClick={handleAddLink}>
-            Add Link
-          </Button>
-          <DialogClose asChild>
-            <Button type="button" variant="outline">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
+    )
 }
+
+export default MenuComp

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BentoDock from "./BentoDock";
 
 const ProfileSection = () => {
     const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -60,6 +61,7 @@ const ProfileSection = () => {
                     rows={3}
                 />
             </div>
+            <BentoDock />
         </div>
     );
 };
