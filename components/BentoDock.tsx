@@ -9,7 +9,7 @@ import SaveChangesBtn from './SaveChangesBtn';
 
 const BentoDock = () => {
     return (
-        <div className='w-[25%] h-14 px-6 border fixed bottom-4 shadow-lg rounded-2xl'>
+        <div className='w-[25%] h-14 px-6 border fixed bottom-14 left-12 shadow-2xl rounded-2xl'>
             <div className='w-full h-full rounded-2xl flex justify-between items-center'>
                 {/* Add link button */}
                 <AddLinkbtn />

@@ -4,14 +4,14 @@
 
 .react-grid-item {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s, height 0.4s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for aesthetic effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for aesthetic effect */
 }
 
 /* Apply the wobble animation only when dragging */
 .react-grid-item.dragging {
   animation: wobble 0.9s ease-in-out infinite; /* Wobble animation */
   border: 2px dashed #4a90e2; /* Dashed border during dragging */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow during dragging */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2); /* Deeper shadow during dragging */
   transition: none; /* Remove transition during dragging for real-time response */
 }
 

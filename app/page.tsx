@@ -27,6 +27,7 @@ import { gridWidth, numCols, rowHeight } from "@/utils/config";
 import { GlobalLayoutRecState, GlobalLayoutUnsavedChangesRecState, newLayoutItemIndexRecState } from "@/store/layoutStore";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import axios from "axios";
+import { auth } from "./auth";
 
 
 
@@ -36,6 +37,7 @@ export default function Home() {
   const [newItemIndex, setNewItemIndex] = useRecoilState(newLayoutItemIndexRecState);
   // flag for unsaved changes
   const [unsavedChanges, setUnsavedChanges] = useRecoilState(GlobalLayoutUnsavedChangesRecState);
+
 
 
   // local states
@@ -140,7 +142,7 @@ export default function Home() {
             <div
               key={item.i}
               data-grid={{ i: item.i, x: item.x, y: item.y, w: item.w, h: item.h }}
-              className={`bg-gray-200 overflow-hidden rounded-3xl shadow`}
+              className={`bg-gray-200 overflow-hidden rounded-3xl shadow-2xl`}
             >
               {renderComponent(item)}
 
