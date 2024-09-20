@@ -18,7 +18,7 @@ const ProfileSection = () => {
     };
 
     return (
-        <div className="flex flex-col w-full h-screen">
+        <div className="flex flex-col w-full h-screen fixed">
             {/* Profile Picture Section */}
             <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden border mt-12 ml-12 mb-4">
                 {profileImage ? (

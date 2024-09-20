@@ -80,7 +80,7 @@ const AddLinkbtn = () => {
     return (
         <div>
             {/* Link button triggering the dialog */}
-            <Dialog>
+            <Dialog >
                 <DialogTrigger asChild>
                     <button className='h-8 w-8 p-2 border shadow rounded-xl hover:scale-125 duration-500'>
                         <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,19 +95,20 @@ const AddLinkbtn = () => {
                 </DialogTrigger>
 
                 {/* Dialog content for adding component */}
-                <DialogContent className="sm:max-w-md">
-                    <DialogHeader className="text-white">
-                        <DialogTitle>Add New Component</DialogTitle>
+                <DialogContent className=" bg-black border-black text-gray-300 ">
+                    <DialogHeader className="">
+                        <DialogTitle>Paste new Link</DialogTitle>
                         <DialogDescription>
-                            Enter the URL to add a new component.
+                            Enter your Url here...
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="flex flex-col space-y-2 text-white">
+                    <div className="flex flex-col space-y-2">
                         <Input
                             type="text"
                             value={url}
                             onChange={handleInputChange}
                             placeholder="Enter URL"
+                            className=' rounded-xl'
                         />
                         <Button
                             onClick={() => {
@@ -118,15 +119,15 @@ const AddLinkbtn = () => {
                                     console.error('URL cannot be empty');
                                 }
                             }}
-                            className="bg-blue-500 text-white p-2 rounded"
+                            className="bg-white text-black rounded-xl hover:bg-gray-200 hover:text-base duration-1000 p-2 "
                         >
                             Add Component
                         </Button>
-                        <DialogClose asChild>
+                        {/* <DialogClose asChild>
                             <Button type="button" variant="secondary">
                                 Close
                             </Button>
-                        </DialogClose>
+                        </DialogClose> */}
                     </div>
                 </DialogContent>
             </Dialog>
