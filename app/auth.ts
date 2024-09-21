@@ -29,12 +29,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 email: { label: "Email", type: "email", placeholder: "email" },
                 password: { label: "Password", type: "password", placeholder: "password" },
             },
+            //@ts-ignore
             async authorize(credentials) {
-                const email = credentials?.email;
-                const password = credentials?.password;
+                const email = credentials?.email as string;
+                const password = credentials?.password as string;
+                if (typeof credentials.email !== 'string' || typeof credentials.password !== 'string') {
+                    return null
+                }
 
                 if (!email || !password) {
                     throw new CredentialsSignin("Enter both email and password");
+
                 }
 
                 // Check if the user exists in the database

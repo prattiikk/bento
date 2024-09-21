@@ -38,7 +38,7 @@ const SaveChangesBtn = () => {
             <button
                 onClick={() => saveChanges()}
                 disabled={!unsavedChanges}
-                className={`h-8 w-auto text-xs px-2 text-nowrap flex justify-center shadow items-center border rounded-xl hover:scale-110 duration-500 ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`h-8 w-auto text-xs px-2 text-nowrap flex justify-center shadow items-center border rounded-xl hover:scale-110 duration-500 ${!unsavedChanges ? 'opacity-50 cursor-not-allowed' : ' bg-green-400 text-white font-semibold'}`}
             >
                 Save Changes
             </button>
