@@ -9,6 +9,7 @@ import {
     newLayoutItemIndexRecState
 } from '@/store/layoutStore';
 import LayoutItem from '@/utils/Types';
+import { makeUpdateCall } from '@/utils/ComponentUtilities';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
@@ -67,6 +68,8 @@ const FileUploadButton = () => {
 
         // Update layout, newItemIndex, and unsavedChanges using Recoil
         setLayout((prevLayout) => [...prevLayout, newItem]);
+        // make the update layout call to the server
+        
         setNewItemIndex((prevIndex) => prevIndex + 1);
         setUnsavedChanges(true); // Mark changes as unsaved
     };

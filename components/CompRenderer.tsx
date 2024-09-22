@@ -7,6 +7,7 @@ import Video from "@/components/Video";
 import Social from "@/components/Social";
 import Map from "@/components/Map";
 import LayoutItem from "@/utils/Types";
+import SectionTile from "./SectionTile";
 
 const renderComponent = (item: LayoutItem) => {
     switch (item.type) {
@@ -22,6 +23,8 @@ const renderComponent = (item: LayoutItem) => {
             return <Map latitude={item.data.latitude} longitude={item.data.longitude} zoom={item.data.zoom} />;
         case "website":
             return <Websites url={item.data.url} />;
+        case "sectionTile":
+            return <SectionTile />
         default:
             return <div>Unknown Component Type</div>;
     }

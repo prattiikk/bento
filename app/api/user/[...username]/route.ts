@@ -104,6 +104,6 @@ export async function GET() {
 
         ]
     };
-
+    console.log("original one : ", typeof portfolioData)
     return NextResponse.json(portfolioData);
 }

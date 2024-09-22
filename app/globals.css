@@ -125,3 +125,51 @@
 
 
 
+
+.throb {
+  animation: throb 1s infinite;
+}
+
+@keyframes throb {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+
+
+
+
+/* exception class for section tiles component*/ 
+.react-grid-item-exception {
+  transition: none; /* Disable transitions */
+  box-shadow: none; /* No shadow */
+}
+
+/* Styles for dragging */
+.react-grid-item-exception.dragging {
+  animation: none; /* No wobble animation */
+  border: none; /* No border during dragging */
+  box-shadow: none; /* No shadow during dragging */
+}
+
+/* Styles for hover */
+.react-grid-item-exception:hover {
+  box-shadow: none; /* No shadow on hover */
+}
+
+/* Resizable handle styles */
+.react-grid-item-exception .react-resizable-handle {
+  visibility: hidden; /* Hide handles by default */
+}
+
+/* Show handles on hover */
+.react-grid-item-exception:hover .react-resizable-handle {
+  visibility: visible; /* Show handles on hover */
+}

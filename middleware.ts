@@ -10,6 +10,8 @@ export async function middleware(req: NextRequest) {
     // Get the token (session) from the request
     const token = await getToken({ req, secret });
 
+    
+
     if (!token) {
         // Redirect to login if no token is found
         return NextResponse.redirect(new URL('/login', req.url));

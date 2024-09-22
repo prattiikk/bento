@@ -5,6 +5,6 @@ export default interface LayoutItem {
     y: number;
     w: number;
     h: number;
-    type: "socialMediaLinks" | "image" | "video" | "map" | "text" | "website";
+    type: "socialMediaLinks" | "image" | "video" | "map" | "text" | "website" | "sectionTile";
     data: any;
 }
