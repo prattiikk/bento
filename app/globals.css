@@ -47,7 +47,7 @@
 .react-grid-placeholder {
   border: 2px dashed #999; /* Dashed border similar to dragging */
   border-radius:10%;
-  background-color: #999;
+  /* background-color: #999; */
 }
 
 /* Resize handler button styles */

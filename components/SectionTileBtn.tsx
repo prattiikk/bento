@@ -19,11 +19,10 @@ const SectionTileBtn: React.FC = () => {
     }, [layout, newItemIndex]);
 
     const addTile = () => {
-        const numCols = 4;
         const rowHeight = 180;
 
-        let x = 0;
-        let y = layout.length > 0 ? layout[layout.length - 1].y + layout[layout.length - 1].h * rowHeight : 0;
+        const x = 0;
+        const y = layout.length > 0 ? layout[layout.length - 1].y + layout[layout.length - 1].h * rowHeight : 0;
 
         const newId = generateUniqueId();
         const newItem: LayoutItem = {

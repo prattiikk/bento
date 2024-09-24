@@ -8,6 +8,7 @@ export const GlobalLayoutRecState = atom<LayoutItem[]>({
     default: [],        // initial value
 });
 
+
 // Atom for unsaved changes state
 export const GlobalLayoutUnsavedChangesRecState = atom<boolean>({
     key: 'GlobalLayoutUnsavedChangesRecState',

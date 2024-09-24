@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import client from "@/db";
 import LayoutItem from '@/utils/Types';
 import { auth } from '@/app/auth';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     const session = await auth();
 
     if (!session) {
@@ -44,7 +44,7 @@ async function getUserLayoutFromDatabase(email: string): Promise<LayoutItem[] | 
                 typeof item.y === "number" &&
                 typeof item.w === "number" &&
                 typeof item.h === "number" &&
-                ["socialMediaLinks", "image", "video", "map", "text", "website"].includes(item.type) &&
+                ["socialMediaLinks", "image", "video", "map", "text", "website", "sectionTile"].includes(item.type) &&
                 "data" in item
             );
 

@@ -24,7 +24,7 @@ const renderComponent = (item: LayoutItem) => {
         case "website":
             return <Websites url={item.data.url} />;
         case "sectionTile":
-            return <SectionTile />
+            return <SectionTile data={item.data} />
         default:
             return <div>Unknown Component Type</div>;
     }
