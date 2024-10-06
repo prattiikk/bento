@@ -150,6 +150,7 @@
 .react-grid-item-exception {
   transition: none; /* Disable transitions */
   box-shadow: none; /* No shadow */
+  border-radius : none;
 }
 
 /* Styles for dragging */

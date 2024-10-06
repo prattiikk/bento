@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BentoDock from "./BentoDock";
+import BentoDock from "@/components/Dock/BentoDock";
 import axios from "axios";
 
 const ProfileSection = () => {
