@@ -14,7 +14,7 @@ const renderComponent = (item: LayoutItem) => {
         case "socialMediaLinks":
             return <Social url={item.data.url} platform={item.data.platform} />;
         case "text":
-            return <TextCard cont={item.data.content} item={item} />;
+            return <TextCard item={item} />;
         case "image":
             return <Photo src={item.data.url} alt={item.data.alt} />;
         case "video":
@@ -24,7 +24,7 @@ const renderComponent = (item: LayoutItem) => {
         case "website":
             return <Websites url={item.data.url} />;
         case "sectionTile":
-            return <SectionTile data={item.data} />
+            return <SectionTile item={item} />
         default:
             return <div>Unknown Component Type</div>;
     }

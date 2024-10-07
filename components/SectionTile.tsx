@@ -1,46 +1,35 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { GlobalLayoutRecState, GlobalLayoutUnsavedChangesRecState } from "@/store/layoutStore";
+import LayoutItem from '@/utils/Types'; // Import your layout type
 
 // Define the props interface for proper typing
 interface TextCardProps {
-    data: string;
+    item: LayoutItem;  // Pass the current layout item for easier updates
 }
 
-const TextCard: React.FC<TextCardProps> = ({ data }) => {
-    const [content, setContent] = useState<string>(data);
+const TextCard: React.FC<TextCardProps> = ({ item }) => {
+    const [content, setContent] = useState<string>(item.data);
+    console.log(item.data)
+    const [layout, setLayout] = useRecoilState(GlobalLayoutRecState); // Using useRecoilState to update the layout
     const setUnsavedChanges = useSetRecoilState(GlobalLayoutUnsavedChangesRecState);
     const inputRef = useRef<HTMLInputElement>(null);
-    const layout = useRecoilValue(GlobalLayoutRecState)
+
     useEffect(() => {
-        const updateTileInfo = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/api/user/tileChange", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ TileInfo: layout, content })
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to update tile info");
-                }
-
-                const result = await response.json();
-                console.log("Tile updated successfully:", result);
-            } catch (error) {
-                console.error("Error updating tile info:", error);
-            }
+        const updateLayout = () => {
+            const updatedLayout = layout.map((layoutItem: LayoutItem) =>
+                layoutItem.i === item.i ? { ...layoutItem, data: content } : layoutItem
+            );
+            setLayout(updatedLayout);
+            setUnsavedChanges(true);
         };
 
-        const timer = setTimeout(() => {
-            updateTileInfo();
-            setUnsavedChanges(true);
-        }, 3000); // Add delay for debouncing
+        const timer = setTimeout(updateLayout, 1000); // Debouncing to reduce frequent updates
 
         return () => clearTimeout(timer); // Cleanup the timeout
-    }, [content, setUnsavedChanges, layout]);
+    }, [content]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setContent(e.target.value);

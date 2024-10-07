@@ -6,11 +6,11 @@ import LayoutItem from "@/utils/Types"
 import { useRecoilState, useSetRecoilState } from "recoil"
 import { GlobalLayoutRecState, GlobalLayoutUnsavedChangesRecState } from "@/store/layoutStore"
 
-export default function TextCard({ cont, item }: { cont: string, item: LayoutItem }) {
-    const [content, setContent] = useState(cont)
-    const [textAlign, setTextAlign] = useState<"left" | "center" | "right" | "justify">("left")
-    const [bgColor, setBgColor] = useState("#768CFF")
-    const [textColor, setTextColor] = useState("#FFFFFF")
+export default function TextCard({ item }: { item: LayoutItem }) {
+    const [content, setContent] = useState(item.data.content)
+    const [textAlign, setTextAlign] = useState<"left" | "center" | "right" | "justify">(item.data.textAlign)
+    const [bgColor, setBgColor] = useState(item.data.bgColor)
+    const [textColor, setTextColor] = useState(item.data.textColor)
     const [showBgColors, setShowBgColors] = useState(false)
     const [showTextColors, setShowTextColors] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
