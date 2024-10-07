@@ -1,6 +1,5 @@
 import React from 'react';
 import bentoMap from "@/components/assets/bento map.png";
-import bentoText from "@/components/assets/bento text.png";
 import Image from 'next/image';
 import FileUploadButton from "@/components/Dock/FileBtn"; // Ensure correct import
 
@@ -8,6 +7,7 @@ import AddLinkbtn from './AddLinkbtn';
 import SaveChangesBtn from './SaveChangesBtn';
 import SectionTileBtn from './SectionTileBtn';
 import Tooltip from '../ui/tooltip';
+import AddTextBtn from "@/components/Dock/AddTextBtn"
 
 const BentoDock = () => {
     return (
@@ -22,9 +22,7 @@ const BentoDock = () => {
 
                 {/* Text button */}
                 <Tooltip text={"insert text card"}>
-                    <button onClick={() => console.log('Text icon clicked')} className='h-8 w-8 overflow-hidden border shadow rounded-xl hover:scale-125 duration-500'>
-                        <Image src={bentoText} alt='Text Icon' width={32} height={32} />
-                    </button>
+                    <AddTextBtn />
                 </Tooltip>
 
 

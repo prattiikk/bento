@@ -121,7 +121,11 @@ export default function Home() {
                         <div
                             key={item.i}
                             data-grid={{ i: item.i, x: item.x, y: item.y, w: item.w, h: item.h }}
-                            className={`${item.type === "sectionTile" ? "react-grid-item-exception" : " bg-gray-200 overflow-hidden rounded-3xl shadow-2xl"}`}
+                            className={`${item.type === "sectionTile"
+                                ? "react-grid-item-exception"
+                                : item.type === "text"
+                                    ? "bg-gray-200 overflow-visible rounded-3xl shadow-2xl"
+                                    : "bg-gray-200 overflow-hidden rounded-3xl shadow-2xl"}`}
                         >
                             {renderComponent(item)}
 

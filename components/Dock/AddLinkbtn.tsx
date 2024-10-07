@@ -16,7 +16,7 @@ const AddLinkbtn = () => {
     const [url, setUrl] = useState("")
     const [isOpen, setIsOpen] = useState(false)
 
-    const getComponentTypeFromURL = (url: string): "socialMediaLinks" | "image" | "video" | "map" | "text" | "website" => {
+    const getComponentTypeFromURL = (): "socialMediaLinks" | "image" | "video" | "map" | "text" | "website" => {
         return 'website' // Replace with your logic to determine type
     }
 
@@ -33,7 +33,7 @@ const AddLinkbtn = () => {
     }
 
     const addComponentFromURL = (url: string) => {
-        const type = getComponentTypeFromURL(url)
+        const type = getComponentTypeFromURL()
         const rowHeight = 180
 
         if (type) {
