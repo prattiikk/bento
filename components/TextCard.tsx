@@ -1,17 +1,21 @@
-"use client"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AlignLeft, AlignCenter, AlignRight, AlignJustify, Type } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import LayoutItem from "@/utils/Types"
+import { useRecoilState, useSetRecoilState } from "recoil"
+import { GlobalLayoutRecState, GlobalLayoutUnsavedChangesRecState } from "@/store/layoutStore"
 
-export default function TextCard({ cont }: { cont: string }) {
+export default function TextCard({ cont, item }: { cont: string, item: LayoutItem }) {
     const [content, setContent] = useState(cont)
     const [textAlign, setTextAlign] = useState<"left" | "center" | "right" | "justify">("left")
     const [bgColor, setBgColor] = useState("#768CFF")
     const [textColor, setTextColor] = useState("#FFFFFF")
     const [showBgColors, setShowBgColors] = useState(false)
     const [showTextColors, setShowTextColors] = useState(false)
+
+    const [layout, setLayout] = useRecoilState(GlobalLayoutRecState)
+    const setUnsavedChanges = useSetRecoilState(GlobalLayoutUnsavedChangesRecState)
 
     const bgColors = [
         "#FFFFFF", "#F2F2F2", "#5DADE2", "#4A90E2", "#3498DB", "#F1C40F", "#E67E22", "#E74C3C",
@@ -24,6 +28,35 @@ export default function TextCard({ cont }: { cont: string }) {
         { name: "Gray", value: "#808080" },
         { name: "Blue", value: "#0000FF" }
     ]
+
+    // Function to update the global layout
+    const updateGlobalLayout = (updatedItem: LayoutItem) => {
+        // Find the index of the current item in the layout array
+        const index = layout.findIndex(l => l.i === updatedItem.i)
+
+        if (index !== -1) {
+            // Create a copy of the layout array and update the item at the found index
+            const updatedLayout = [...layout]
+            updatedLayout[index] = updatedItem
+
+            // Set the updated layout in Recoil
+            setLayout(updatedLayout)
+            setUnsavedChanges(true)
+        }
+    }
+
+    // useEffect hooks to trigger layout updates when changes occur
+    useEffect(() => {
+        updateGlobalLayout({
+            ...item,
+            data: {
+                content,
+                textAlign,
+                bgColor,
+                textColor
+            }
+        })
+    }, [content, textAlign, bgColor, textColor])
 
     return (
         <div className="w-full h-full relative">

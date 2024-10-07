@@ -14,7 +14,7 @@ const renderComponent = (item: LayoutItem) => {
         case "socialMediaLinks":
             return <Social url={item.data.url} platform={item.data.platform} />;
         case "text":
-            return <TextCard cont={item.data.content} />;
+            return <TextCard cont={item.data.content} item={item} />;
         case "image":
             return <Photo src={item.data.url} alt={item.data.alt} />;
         case "video":
