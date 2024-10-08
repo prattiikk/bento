@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const AirplaneScene = () => {
     return (
-        <div className="absolute w-full h-full inset-0 overflow-visible">
+        <div className="absolute w-full h-full overflow-hidden">
             <Image
                 src={CloudImage}
                 alt="cloud background"

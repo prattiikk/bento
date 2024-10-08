@@ -53,3 +53,10 @@ const TextCard: React.FC<TextCardProps> = ({ item }) => {
 };
 
 export default TextCard;
+
+
+
+
+
+
+

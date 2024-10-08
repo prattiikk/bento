@@ -13,21 +13,20 @@ export default function TextCard({ item }: { item: LayoutItem }) {
     const [textColor, setTextColor] = useState(item.data.textColor)
     const [showBgColors, setShowBgColors] = useState(false)
     const [showTextColors, setShowTextColors] = useState(false)
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(true)
 
     const [layout, setLayout] = useRecoilState(GlobalLayoutRecState)
     const setUnsavedChanges = useSetRecoilState(GlobalLayoutUnsavedChangesRecState)
 
     const bgColors = [
-        "#FFFFFF", "#F2F2F2", "#5DADE2", "#4A90E2", "#3498DB", "#F1C40F", "#E67E22", "#E74C3C",
-        "#95A5A6", "#34495E", "#D7BDE2", "#D2B4DE", "#C39BD3", "#ABEBC6", "#82E0AA", "#16A085"
+        "#FFFFFF", "#F2F2F2", "#59B2E6", "#4A90E2", "#3498DB", "#F1C40F", "#E67E22", "#E74C3C",
+        "#494949", "#121212", "#E486D7", "#EEA8DB", "#DC5ABB", "#A5F9E7", "#3EB59D", "#1B7865"
     ]
 
     const textColors = [
         { name: "White", value: "#FFFFFF" },
         { name: "Black", value: "#000000" },
         { name: "Gray", value: "#808080" },
-        { name: "Blue", value: "#0000FF" }
     ]
 
     // Function to update the global layout
@@ -95,10 +94,10 @@ export default function TextCard({ item }: { item: LayoutItem }) {
                                 className="flex items-center text-white h-8 w-8 p-0"
                                 onClick={() => setShowBgColors(!showBgColors)}
                             >
-                                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: bgColor }}></div>
+                                <div className="w-4 h-4 rounded-full border border-white" style={{ backgroundColor: bgColor }}></div>
                             </Button>
                             {showBgColors && (
-                                <div className="absolute mt-2 left-1/2 transform -translate-x-full w-48 mb-2 p-4 bg-gray-800 rounded-2xl shadow-lg z-20">
+                                <div className="absolute mt-2 left-20 transform -translate-x-full w-48 mb-2 p-4 bg-gray-800 rounded-2xl shadow-lg z-20">
                                     <div className="grid grid-cols-8 gap-1 mb-2">
                                         {bgColors.map((color) => (
                                             <Button
@@ -130,7 +129,7 @@ export default function TextCard({ item }: { item: LayoutItem }) {
                                 <Type className="h-4 w-4" />
                             </Button>
                             {showTextColors && (
-                                <div className="absolute left-1/2 transform -translate-x-0 mt-2 mb-2 p-1 bg-gray-800 rounded-2xl shadow-lg z-10">
+                                <div className="absolute -bottom-4 -right-28 transform -translate-x-0 mt-2 mb-2 p-1 bg-gray-800 rounded-2xl shadow-lg z-10">
                                     <div className="flex space-x-1">
                                         {textColors.map((color) => (
                                             <Button

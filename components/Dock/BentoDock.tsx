@@ -1,6 +1,4 @@
 import React from 'react';
-import bentoMap from "@/components/assets/bento map.png";
-import Image from 'next/image';
 import FileUploadButton from "@/components/Dock/FileBtn"; // Ensure correct import
 
 import AddLinkbtn from './AddLinkbtn';
@@ -8,16 +6,20 @@ import SaveChangesBtn from './SaveChangesBtn';
 import SectionTileBtn from './SectionTileBtn';
 import Tooltip from '../ui/tooltip';
 import AddTextBtn from "@/components/Dock/AddTextBtn"
-
+import AddMapBtn from "@/components/Dock/AddMapBtn"
 const BentoDock = () => {
     return (
         <div className='w-[30%] h-14 px-6 border fixed bottom-14 left-12 shadow-2xl rounded-2xl'>
             <div className='w-full h-full rounded-2xl flex justify-between items-center'>
                 {/* Add link button */}
-                <Tooltip text={"add links"}><AddLinkbtn /></Tooltip>
+                <Tooltip text={"add links"}>
+                    <AddLinkbtn />
+                </Tooltip>
 
                 {/* Gallery button */}
-                <Tooltip text={"upload Images/videos"}> <FileUploadButton /></Tooltip>
+                <Tooltip text={"upload Images/videos"}>
+                    <FileUploadButton />
+                </Tooltip>
 
 
                 {/* Text button */}
@@ -29,19 +31,21 @@ const BentoDock = () => {
 
                 {/* Map button */}
                 <Tooltip text={"add map"}>
-                    <button onClick={() => console.log('Map icon clicked')} className='h-8 w-8 border overflow-hidden shadow rounded-xl hover:scale-125 duration-500'>
-                        <Image src={bentoMap} alt='Map Icon' width={32} height={32} />
-                    </button>
+                    <AddMapBtn />
                 </Tooltip>
 
 
                 {/* section tile button */}
-                <Tooltip text={"add section tile"}><SectionTileBtn /></Tooltip>
+                <Tooltip text={"add section tile"}>
+                    <SectionTileBtn />
+                </Tooltip>
 
 
 
                 {/* Save changes button */}
-                <Tooltip text={"save changes"}><SaveChangesBtn /></Tooltip>
+                <Tooltip text={"save changes"}>
+                    <SaveChangesBtn />
+                </Tooltip>
 
 
             </div>

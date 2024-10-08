@@ -123,7 +123,7 @@ export default function Home() {
                             data-grid={{ i: item.i, x: item.x, y: item.y, w: item.w, h: item.h }}
                             className={`${item.type === "sectionTile"
                                 ? "react-grid-item-exception"
-                                : item.type === "text"
+                                : item.type === "text" || item.type === "map"
                                     ? "bg-gray-200 overflow-visible rounded-3xl shadow-2xl"
                                     : "bg-gray-200 overflow-hidden rounded-3xl shadow-2xl"}`}
                         >

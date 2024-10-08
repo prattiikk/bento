@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '/Users/pratikvikasshinde/Desktop/PROJECTS/bento/node_modules/mapbox-gl/dist/mapbox-gl.css';
+
 .react-grid-item {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s, height 0.4s;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for aesthetic effect */
@@ -174,3 +176,10 @@
 .react-grid-item-exception:hover .react-resizable-handle {
   visibility: visible; /* Show handles on hover */
 }
+
+
+
+
+
+
+

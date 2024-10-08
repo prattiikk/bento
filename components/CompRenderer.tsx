@@ -20,7 +20,8 @@ const renderComponent = (item: LayoutItem) => {
         case "video":
             return <Video src={item.data.url} />;
         case "map":
-            return <Map latitude={item.data.latitude} longitude={item.data.longitude} zoom={item.data.zoom} />;
+            return <Map />;
+        // latitude={item.data.latitude} longitude={item.data.longitude} zoom={item.data.zoom}
         case "website":
             return <Websites url={item.data.url} />;
         case "sectionTile":
