@@ -107,7 +107,7 @@ interface Suggestion {
     coords: [number, number]
 }
 
-const initialLocation = { lng: 73.9665, lat: 40.7812 }
+const initialLocation = { lng: -73.9665, lat: 40.7812 }
 
 export default function Component() {
     const [lng, setLng] = useState<number>(initialLocation.lng)
